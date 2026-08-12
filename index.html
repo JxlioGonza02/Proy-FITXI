@@ -1,409 +1,591 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FITXI — Soluciones técnicas a tu alcance</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FITXI — Soluciones técnicas a tu alcance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="fitxi-header">
+      <div class="fitxi-logo-block">
+        <button
+          class="hamburger-btn"
+          id="hamburger-btn"
+          aria-label="Abrir menú"
+        >
+          ☰
+        </button>
+        <span class="fitxi-logo-tagline">Soluciones técnicas a tu alcance</span>
+      </div>
+      <div class="fitxi-header-actions">
+        <a
+          href="perfil.html"
+          class="avatar-circle"
+          style="text-decoration: none"
+          title="Mi perfil"
+          >A</a
+        >
+      </div>
+    </header>
 
-<header class="fitxi-header">
-  <div class="fitxi-logo-block">
-    <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir menú">☰</button>
-    <span class="fitxi-logo-tagline">Soluciones técnicas a tu alcance</span>
-  </div>
-  <div class="fitxi-header-actions">
-    <a href="perfil.html" class="avatar-circle" style="text-decoration:none;" title="Mi perfil">A</a>
-  </div>
-</header>
+    <!-- Menú lateral -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <aside class="drawer" id="drawer">
+      <button class="drawer-close" id="drawer-close" aria-label="Cerrar menú">
+        ✕
+      </button>
 
-<!-- Menú lateral -->
-<div class="drawer-overlay" id="drawer-overlay"></div>
-<aside class="drawer" id="drawer">
-  <button class="drawer-close" id="drawer-close" aria-label="Cerrar menú">✕</button>
+      <a href="perfil.html" class="drawer-profile">
+        <img
+          src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=120&h=120&fit=crop&crop=faces"
+          alt="Javier Ramírez"
+        />
+        <div class="info">
+          <div class="pname">Javier Ramírez</div>
+          <div class="prating"><span class="stars">★★★★★</span> 4.9 (12)</div>
+        </div>
+        <span class="chev">›</span>
+      </a>
 
-  <a href="perfil.html" class="drawer-profile">
-    <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=120&h=120&fit=crop&crop=faces" alt="Javier Ramírez">
-    <div class="info">
-      <div class="pname">Javier Ramírez</div>
-      <div class="prating"><span class="stars">★★★★★</span> 4.9 (12)</div>
-    </div>
-    <span class="chev">›</span>
-  </a>
+      <nav class="drawer-nav">
+        <a href="index.html" class="drawer-nav-item active"
+          ><span class="icon">🏠</span> Inicio</a
+        >
+        <a href="index.html#servicios" class="drawer-nav-item"
+          ><span class="icon">🔍</span> Buscar Servicios</a
+        >
+        <a href="perfil.html?tab=bookings" class="drawer-nav-item"
+          ><span class="icon">📅</span> Mis Reservas</a
+        >
+        <a href="perfil.html?tab=payments" class="drawer-nav-item"
+          ><span class="icon">💳</span> Métodos de Pago</a
+        >
+        <a href="perfil.html?tab=addresses" class="drawer-nav-item"
+          ><span class="icon">📍</span> Direcciones</a
+        >
 
-  <nav class="drawer-nav">
-    <a href="index.html" class="drawer-nav-item active"><span class="icon">🏠</span> Inicio</a>
-    <a href="index.html#servicios" class="drawer-nav-item"><span class="icon">🔍</span> Buscar Servicios</a>
-    <a href="perfil.html?tab=bookings" class="drawer-nav-item"><span class="icon">📅</span> Mis Reservas</a>
-    <a href="perfil.html?tab=payments" class="drawer-nav-item"><span class="icon">💳</span> Métodos de Pago</a>
-    <a href="perfil.html?tab=addresses" class="drawer-nav-item"><span class="icon">📍</span> Direcciones</a>
+        <div class="drawer-divider"></div>
 
-    <div class="drawer-divider"></div>
+        <a href="#" class="drawer-nav-item"
+          ><span class="icon">🔔</span> Notificaciones
+          <span class="badge2">2</span></a
+        >
+        <a href="#" class="drawer-nav-item"
+          ><span class="icon">🛡️</span> Seguridad</a
+        >
+        <a href="#" class="drawer-nav-item"
+          ><span class="icon">⚙️</span> Configuración</a
+        >
+        <a href="#" class="drawer-nav-item"
+          ><span class="icon">ℹ️</span> Ayuda / Soporte</a
+        >
+      </nav>
 
-    <a href="#" class="drawer-nav-item"><span class="icon">🔔</span> Notificaciones <span class="badge2">2</span></a>
-    <a href="#" class="drawer-nav-item"><span class="icon">🛡️</span> Seguridad</a>
-    <a href="#" class="drawer-nav-item"><span class="icon">⚙️</span> Configuración</a>
-    <a href="#" class="drawer-nav-item"><span class="icon">ℹ️</span> Ayuda / Soporte</a>
-  </nav>
+      <div class="drawer-cta-wrap">
+        <a href="perfil.html?tab=expert" class="btn btn-primary drawer-cta"
+          >🛠️ Modo Experto</a
+        >
+      </div>
+      <a href="login.html" class="drawer-logout">Cerrar sesión</a>
 
-  <div class="drawer-cta-wrap">
-    <a href="perfil.html?tab=expert" class="btn btn-primary drawer-cta">🛠️ Modo Experto</a>
-  </div>
-  <a href="login.html" class="drawer-logout">Cerrar sesión</a>
+      <div class="drawer-footer">@JG <span class="star">★</span> @ingpiña</div>
+    </aside>
 
-  <div class="drawer-footer">@JG <span class="star">★</span> @ingpiña</div>
-</aside>
+    <div class="dashboard-wrap">
+      <div class="dashboard-grid">
+        <!-- Mapa -->
+        <div class="map-card">
+          <div class="search-bar">
+            <input
+              type="text"
+              placeholder="Busca un plomero, electricista... a tu alcance"
+            />
+            <button aria-label="Buscar">🔍</button>
+          </div>
 
+          <div class="map-canvas">
+            <div
+              class="street"
+              style="top: 80px; left: 0; width: 100%; height: 10px"
+            ></div>
+            <div
+              class="street"
+              style="top: 220px; left: 0; width: 100%; height: 10px"
+            ></div>
+            <div
+              class="street"
+              style="top: 0; left: 120px; width: 10px; height: 100%"
+            ></div>
+            <div
+              class="street"
+              style="top: 0; left: 300px; width: 10px; height: 100%"
+            ></div>
 
-<div class="dashboard-wrap">
+            <div class="map-pin" style="top: 40px; left: 40px">
+              <div class="pin-inner">🔧</div>
+            </div>
 
-  <div class="dashboard-grid">
+            <div class="map-pin" style="top: 60px; left: 160px">
+              <div class="pin-inner">💡</div>
+            </div>
+            <div class="map-tooltip" style="top: 30px; left: 190px">
+              Alex R. — 4.9 ★
+            </div>
 
-    <!-- Mapa -->
-    <div class="map-card">
-      <div class="search-bar">
-        <input type="text" placeholder="Busca un plomero, electricista... a tu alcance">
-        <button aria-label="Buscar">🔍</button>
+            <div class="map-pin orange" style="top: 90px; left: 300px">
+              <div class="pin-inner">🖌️</div>
+            </div>
+
+            <div class="map-pin" style="top: 150px; left: 100px">
+              <div class="pin-inner">🧹</div>
+            </div>
+
+            <div class="map-pin orange" style="top: 180px; left: 250px">
+              <div class="pin-inner">🔧</div>
+            </div>
+            <div class="map-tooltip" style="top: 170px; left: 280px">
+              Inmediatamente disponible
+            </div>
+
+            <div class="map-pin" style="top: 130px; left: 340px">
+              <div class="pin-inner">💡</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Expertos destacados -->
+        <div class="sidebar-card">
+          <h3>Expertos Cerca de Ti</h3>
+
+          <div class="expert-row featured" onclick="openExpert('mike')">
+            <img
+              class="expert-avatar-photo"
+              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=faces"
+              alt="Mike S."
+            />
+            <div class="expert-info">
+              <div class="name">
+                Mike S.
+                <span
+                  style="
+                    color: var(--orange-600);
+                    font-size: 11px;
+                    font-weight: 700;
+                  "
+                  >★ Top</span
+                >
+              </div>
+              <div class="stars">★★★★★</div>
+              <div class="role">Plomería y electricidad</div>
+            </div>
+            <div class="expert-score">
+              <div class="num">4.9</div>
+              <div class="dist">2.9 km</div>
+            </div>
+          </div>
+
+          <div class="expert-row" onclick="openExpert('alex')">
+            <img
+              class="expert-avatar-photo"
+              src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop&crop=faces"
+              alt="Alex R."
+            />
+            <div class="expert-info">
+              <div class="name">Alex R.</div>
+              <div class="stars">★★★★★</div>
+              <div class="role">Electricidad</div>
+            </div>
+            <div class="expert-score">
+              <div class="num">4.8</div>
+              <div class="dist">3.5 km</div>
+            </div>
+          </div>
+
+          <div class="expert-row" onclick="openExpert('sarah')">
+            <img
+              class="expert-avatar-photo"
+              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=faces"
+              alt="Sarah P."
+            />
+            <div class="expert-info">
+              <div class="name">Sarah P.</div>
+              <div class="stars">★★★★★</div>
+              <div class="role">Electricidad</div>
+            </div>
+            <div class="expert-score">
+              <div class="num">4.7</div>
+              <div class="dist">2.7 km</div>
+            </div>
+          </div>
+
+          <div class="expert-row" onclick="openExpert('milk')">
+            <img
+              class="expert-avatar-photo"
+              src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=100&h=100&fit=crop&crop=faces"
+              alt="Milk S."
+            />
+            <div class="expert-info">
+              <div class="name">Milk S.</div>
+              <div class="stars">★★★★★</div>
+              <div class="role">Electricidad</div>
+            </div>
+            <div class="expert-score">
+              <div class="num">4.6</div>
+              <div class="dist">2.4 km</div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="map-canvas">
-        <div class="street" style="top:80px; left:0; width:100%; height:10px;"></div>
-        <div class="street" style="top:220px; left:0; width:100%; height:10px;"></div>
-        <div class="street" style="top:0; left:120px; width:10px; height:100%;"></div>
-        <div class="street" style="top:0; left:300px; width:10px; height:100%;"></div>
+      <!-- Buscar servicios -->
+      <h2 class="section-title" id="servicios">Buscar Servicios</h2>
 
-        <div class="map-pin" style="top:40px; left:40px;">
-          <div class="pin-inner">🔧</div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🔧</div>
+          <div class="label">Plomería</div>
+          <div class="desc">Expertos certificados en tuberías y desagües.</div>
         </div>
-
-        <div class="map-pin" style="top:60px; left:160px;">
-          <div class="pin-inner">💡</div>
+        <div class="service-card">
+          <div class="service-icon">💡</div>
+          <div class="label">Electricidad</div>
+          <div class="desc">
+            Instalaciones y reparaciones eléctricas seguras.
+          </div>
         </div>
-        <div class="map-tooltip" style="top:30px; left:190px;">Alex R. — 4.9 ★</div>
-
-        <div class="map-pin orange" style="top:90px; left:300px;">
-          <div class="pin-inner">🖌️</div>
+        <div class="service-card">
+          <div class="service-icon">🖌️</div>
+          <div class="label">Pintura</div>
+          <div class="desc">Acabados interiores y exteriores de calidad.</div>
         </div>
-
-        <div class="map-pin" style="top:150px; left:100px;">
-          <div class="pin-inner">🧹</div>
+        <div class="service-card">
+          <div class="service-icon">🧹</div>
+          <div class="label">Limpieza</div>
+          <div class="desc">Limpieza profunda para el hogar y la oficina.</div>
         </div>
-
-        <div class="map-pin orange" style="top:180px; left:250px;">
-          <div class="pin-inner">🔧</div>
+        <div class="service-card">
+          <div class="service-icon">🪚</div>
+          <div class="label">Carpintería</div>
+          <div class="desc">Muebles a medida y reparaciones en madera.</div>
         </div>
-        <div class="map-tooltip" style="top:170px; left:280px;">Inmediatamente disponible</div>
-
-        <div class="map-pin" style="top:130px; left:340px;">
-          <div class="pin-inner">💡</div>
+        <div class="service-card">
+          <div class="service-icon">🌿</div>
+          <div class="label">Jardinería</div>
+          <div class="desc">Cuidado de jardines, poda y paisajismo.</div>
         </div>
-      </div>
-    </div>
-
-    <!-- Expertos destacados -->
-    <div class="sidebar-card">
-      <h3>Expertos Cerca de Ti</h3>
-
-      <div class="expert-row featured" onclick="openExpert('mike')">
-        <img class="expert-avatar-photo" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=faces" alt="Mike S.">
-        <div class="expert-info">
-          <div class="name">Mike S. <span style="color:var(--orange-600); font-size:11px; font-weight:700;">★ Top</span></div>
-          <div class="stars">★★★★★</div>
-          <div class="role">Plomería y electricidad</div>
+        <div class="service-card">
+          <div class="service-icon">🔑</div>
+          <div class="label">Cerrajería</div>
+          <div class="desc">Apertura, cambio y reparación de cerraduras.</div>
         </div>
-        <div class="expert-score">
-          <div class="num">4.9</div>
-          <div class="dist">2.9 km</div>
+        <div class="service-card">
+          <div class="service-icon">❄️</div>
+          <div class="label">Aire Acondicionado</div>
+          <div class="desc">
+            Instalación, mantenimiento y limpieza de equipos.
+          </div>
         </div>
-      </div>
-
-      <div class="expert-row" onclick="openExpert('alex')">
-        <img class="expert-avatar-photo" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop&crop=faces" alt="Alex R.">
-        <div class="expert-info">
-          <div class="name">Alex R.</div>
-          <div class="stars">★★★★★</div>
-          <div class="role">Electricidad</div>
+        <div class="service-card">
+          <div class="service-icon">📦</div>
+          <div class="label">Mudanzas</div>
+          <div class="desc">Traslados seguros dentro y fuera de la ciudad.</div>
         </div>
-        <div class="expert-score">
-          <div class="num">4.8</div>
-          <div class="dist">3.5 km</div>
+        <div class="service-card">
+          <div class="service-icon">🐜</div>
+          <div class="label">Fumigación</div>
+          <div class="desc">Control de plagas para el hogar y negocios.</div>
         </div>
-      </div>
-
-      <div class="expert-row" onclick="openExpert('sarah')">
-        <img class="expert-avatar-photo" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=faces" alt="Sarah P.">
-        <div class="expert-info">
-          <div class="name">Sarah P.</div>
-          <div class="stars">★★★★★</div>
-          <div class="role">Electricidad</div>
+        <div class="service-card">
+          <div class="service-icon">🏠</div>
+          <div class="label">Remodelación</div>
+          <div class="desc">Renovaciones y ampliaciones de espacios.</div>
         </div>
-        <div class="expert-score">
-          <div class="num">4.7</div>
-          <div class="dist">2.7 km</div>
-        </div>
-      </div>
-
-      <div class="expert-row" onclick="openExpert('milk')">
-        <img class="expert-avatar-photo" src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=100&h=100&fit=crop&crop=faces" alt="Milk S.">
-        <div class="expert-info">
-          <div class="name">Milk S.</div>
-          <div class="stars">★★★★★</div>
-          <div class="role">Electricidad</div>
-        </div>
-        <div class="expert-score">
-          <div class="num">4.6</div>
-          <div class="dist">2.4 km</div>
+        <div class="service-card">
+          <div class="service-icon">🚗</div>
+          <div class="label">Mecánica</div>
+          <div class="desc">
+            Mantenimiento y reparación automotriz a domicilio.
+          </div>
         </div>
       </div>
     </div>
 
-  </div>
+    <!-- Modal de perfil de experto -->
+    <div class="modal-overlay" id="expert-modal">
+      <div class="modal-box expert-modal-box" style="position: relative">
+        <button
+          class="expert-modal-close"
+          onclick="closeExpertModal()"
+          aria-label="Cerrar"
+        >
+          ✕
+        </button>
 
-  <!-- Buscar servicios -->
-  <h2 class="section-title" id="servicios">Buscar Servicios</h2>
+        <div class="expert-modal-header">
+          <img
+            class="expert-modal-avatar"
+            id="em-avatar"
+            src=""
+            alt=""
+            style="object-fit: cover"
+          />
+          <div>
+            <h3 id="em-name">Nombre</h3>
+            <div class="expert-modal-rating">
+              <span class="stars" id="em-stars">★★★★★</span>
+              <span id="em-rating-num">4.9</span>
+              <span>· <span id="em-distance">2.9 km</span></span>
+            </div>
+          </div>
+        </div>
 
-  <div class="services-grid">
-    <div class="service-card">
-      <div class="service-icon">🔧</div>
-      <div class="label">Plomería</div>
-      <div class="desc">Expertos certificados en tuberías y desagües.</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">💡</div>
-      <div class="label">Electricidad</div>
-      <div class="desc">Instalaciones y reparaciones eléctricas seguras.</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🖌️</div>
-      <div class="label">Pintura</div>
-      <div class="desc">Acabados interiores y exteriores de calidad.</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🧹</div>
-      <div class="label">Limpieza</div>
-      <div class="desc">Limpieza profunda para el hogar y la oficina.</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🪚</div>
-      <div class="label">Carpintería</div>
-      <div class="desc">Muebles a medida y reparaciones en madera.</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🌿</div>
-      <div class="label">Jardinería</div>
-      <div class="desc">Cuidado de jardines, poda y paisajismo.</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🔑</div>
-      <div class="label">Cerrajería</div>
-      <div class="desc">Apertura, cambio y reparación de cerraduras.</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">❄️</div>
-      <div class="label">Aire Acondicionado</div>
-      <div class="desc">Instalación, mantenimiento y limpieza de equipos.</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">📦</div>
-      <div class="label">Mudanzas</div>
-      <div class="desc">Traslados seguros dentro y fuera de la ciudad.</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🐜</div>
-      <div class="label">Fumigación</div>
-      <div class="desc">Control de plagas para el hogar y negocios.</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🏠</div>
-      <div class="label">Remodelación</div>
-      <div class="desc">Renovaciones y ampliaciones de espacios.</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🚗</div>
-      <div class="label">Mecánica</div>
-      <div class="desc">Mantenimiento y reparación automotriz a domicilio.</div>
-    </div>
-  </div>
+        <div class="expert-modal-tags" id="em-tags"></div>
 
-</div>
+        <p class="expert-modal-bio" id="em-bio"></p>
 
-<!-- Modal de perfil de experto -->
-<div class="modal-overlay" id="expert-modal">
-  <div class="modal-box expert-modal-box" style="position:relative;">
-    <button class="expert-modal-close" onclick="closeExpertModal()" aria-label="Cerrar">✕</button>
+        <div class="expert-modal-stats">
+          <div class="expert-stat-box">
+            <b id="em-jobs">—</b>
+            <span>Trabajos hechos</span>
+          </div>
+          <div class="expert-stat-box">
+            <b id="em-years">—</b>
+            <span>Años activo</span>
+          </div>
+          <div class="expert-stat-box">
+            <b id="em-response">—</b>
+            <span>Tiempo resp.</span>
+          </div>
+        </div>
 
-    <div class="expert-modal-header">
-      <img class="expert-modal-avatar" id="em-avatar" src="" alt="" style="object-fit:cover;">
-      <div>
-        <h3 id="em-name">Nombre</h3>
-        <div class="expert-modal-rating">
-          <span class="stars" id="em-stars">★★★★★</span>
-          <span id="em-rating-num">4.9</span>
-          <span>· <span id="em-distance">2.9 km</span></span>
+        <div class="expert-modal-reviews">
+          <h4>Reseñas recientes</h4>
+          <div id="em-reviews"></div>
+        </div>
+
+        <div class="expert-modal-actions">
+          <button
+            class="btn btn-outline"
+            style="border-color: var(--border)"
+            onclick="contactExpert()"
+          >
+            ✉️ Contactar
+          </button>
+          <button class="btn btn-primary" onclick="bookExpert()">
+            📅 Reservar
+          </button>
         </div>
       </div>
     </div>
 
-    <div class="expert-modal-tags" id="em-tags"></div>
-
-    <p class="expert-modal-bio" id="em-bio"></p>
-
-    <div class="expert-modal-stats">
-      <div class="expert-stat-box">
-        <b id="em-jobs">—</b>
-        <span>Trabajos hechos</span>
-      </div>
-      <div class="expert-stat-box">
-        <b id="em-years">—</b>
-        <span>Años activo</span>
-      </div>
-      <div class="expert-stat-box">
-        <b id="em-response">—</b>
-        <span>Tiempo resp.</span>
-      </div>
+    <div class="toast" id="toast">
+      <span class="dot">●</span><span id="toast-text"></span>
     </div>
 
-    <div class="expert-modal-reviews">
-      <h4>Reseñas recientes</h4>
-      <div id="em-reviews"></div>
-    </div>
+    <script>
+      /* ---------- Menú lateral (drawer) ---------- */
+      const drawer = document.getElementById("drawer");
+      const drawerOverlay = document.getElementById("drawer-overlay");
 
-    <div class="expert-modal-actions">
-      <button class="btn btn-outline" style="border-color:var(--border);" onclick="contactExpert()">✉️ Contactar</button>
-      <button class="btn btn-primary" onclick="bookExpert()">📅 Reservar</button>
-    </div>
-  </div>
-</div>
+      function openDrawer() {
+        drawer.classList.add("open");
+        drawerOverlay.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeDrawer() {
+        drawer.classList.remove("open");
+        drawerOverlay.classList.remove("open");
+        document.body.style.overflow = "";
+      }
 
-<div class="toast" id="toast"><span class="dot">●</span><span id="toast-text"></span></div>
+      document
+        .getElementById("hamburger-btn")
+        .addEventListener("click", openDrawer);
+      document
+        .getElementById("drawer-close")
+        .addEventListener("click", closeDrawer);
+      drawerOverlay.addEventListener("click", closeDrawer);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeDrawer();
+      });
 
-<script>
-  /* ---------- Menú lateral (drawer) ---------- */
-  const drawer = document.getElementById('drawer');
-  const drawerOverlay = document.getElementById('drawer-overlay');
+      const EXPERTS = {
+        mike: {
+          name: "Mike S.",
+          initial: "M",
+          rating: 4.9,
+          distance: "2.9 km",
+          photo:
+            "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=faces",
+          tags: ["Plomería", "Electricidad", "Urgencias"],
+          bio: "Técnico con más de 8 años de experiencia en reparaciones de plomería y electricidad residencial. Responde rápido y trabaja limpio.",
+          jobs: 214,
+          years: 8,
+          response: "15 min",
+          reviews: [
+            {
+              name: "Laura G.",
+              stars: "★★★★★",
+              text: "Llegó puntual y arregló la fuga en menos de una hora.",
+            },
+            {
+              name: "Pedro M.",
+              stars: "★★★★★",
+              text: "Muy profesional, explica todo antes de empezar.",
+            },
+          ],
+        },
+        alex: {
+          name: "Alex R.",
+          initial: "A",
+          rating: 4.8,
+          distance: "3.5 km",
+          photo:
+            "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop&crop=faces",
+          tags: ["Electricidad", "Instalaciones"],
+          bio: "Electricista certificado especializado en instalaciones residenciales y comerciales. Ofrece garantía en todos sus trabajos.",
+          jobs: 178,
+          years: 6,
+          response: "20 min",
+          reviews: [
+            {
+              name: "Camila R.",
+              stars: "★★★★★",
+              text: "Excelente trabajo instalando el tablero eléctrico.",
+            },
+            {
+              name: "Jorge T.",
+              stars: "★★★★☆",
+              text: "Buen servicio, un poco de retraso pero avisó a tiempo.",
+            },
+          ],
+        },
+        sarah: {
+          name: "Sarah P.",
+          initial: "S",
+          rating: 4.7,
+          distance: "2.7 km",
+          photo:
+            "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=faces",
+          tags: ["Electricidad", "Domótica"],
+          bio: "Especialista en electricidad y automatización del hogar. Le encanta dejar cada instalación ordenada y segura.",
+          jobs: 132,
+          years: 5,
+          response: "25 min",
+          reviews: [
+            {
+              name: "Andrés V.",
+              stars: "★★★★★",
+              text: "Configuró todo el sistema de luces inteligentes, quedó genial.",
+            },
+            {
+              name: "Marcela D.",
+              stars: "★★★★★",
+              text: "Muy amable y ordenada con el trabajo.",
+            },
+          ],
+        },
+        milk: {
+          name: "Milk S.",
+          initial: "M",
+          rating: 4.6,
+          distance: "2.4 km",
+          photo:
+            "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&crop=faces",
+          tags: ["Electricidad", "Mantenimiento"],
+          bio: "Técnico electricista enfocado en mantenimiento preventivo y reparaciones rápidas para el hogar.",
+          jobs: 96,
+          years: 4,
+          response: "30 min",
+          reviews: [
+            {
+              name: "Fernando L.",
+              stars: "★★★★☆",
+              text: "Solucionó el problema del cortocircuito rápidamente.",
+            },
+            {
+              name: "Diana P.",
+              stars: "★★★★★",
+              text: "Muy puntual y buen precio.",
+            },
+          ],
+        },
+      };
 
-  function openDrawer() {
-    drawer.classList.add('open');
-    drawerOverlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeDrawer() {
-    drawer.classList.remove('open');
-    drawerOverlay.classList.remove('open');
-    document.body.style.overflow = '';
-  }
+      const expertModal = document.getElementById("expert-modal");
 
-  document.getElementById('hamburger-btn').addEventListener('click', openDrawer);
-  document.getElementById('drawer-close').addEventListener('click', closeDrawer);
-  drawerOverlay.addEventListener('click', closeDrawer);
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
+      function openExpert(key) {
+        const e = EXPERTS[key];
+        if (!e) return;
 
-  const EXPERTS = {
-    mike: {
-      name: "Mike S.", initial: "M", rating: 4.9, distance: "2.9 km",
-      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=faces",
-      tags: ["Plomería", "Electricidad", "Urgencias"],
-      bio: "Técnico con más de 8 años de experiencia en reparaciones de plomería y electricidad residencial. Responde rápido y trabaja limpio.",
-      jobs: 214, years: 8, response: "15 min",
-      reviews: [
-        { name: "Laura G.", stars: "★★★★★", text: "Llegó puntual y arregló la fuga en menos de una hora." },
-        { name: "Pedro M.", stars: "★★★★★", text: "Muy profesional, explica todo antes de empezar." }
-      ]
-    },
-    alex: {
-      name: "Alex R.", initial: "A", rating: 4.8, distance: "3.5 km",
-      photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop&crop=faces",
-      tags: ["Electricidad", "Instalaciones"],
-      bio: "Electricista certificado especializado en instalaciones residenciales y comerciales. Ofrece garantía en todos sus trabajos.",
-      jobs: 178, years: 6, response: "20 min",
-      reviews: [
-        { name: "Camila R.", stars: "★★★★★", text: "Excelente trabajo instalando el tablero eléctrico." },
-        { name: "Jorge T.", stars: "★★★★☆", text: "Buen servicio, un poco de retraso pero avisó a tiempo." }
-      ]
-    },
-    sarah: {
-      name: "Sarah P.", initial: "S", rating: 4.7, distance: "2.7 km",
-      photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=faces",
-      tags: ["Electricidad", "Domótica"],
-      bio: "Especialista en electricidad y automatización del hogar. Le encanta dejar cada instalación ordenada y segura.",
-      jobs: 132, years: 5, response: "25 min",
-      reviews: [
-        { name: "Andrés V.", stars: "★★★★★", text: "Configuró todo el sistema de luces inteligentes, quedó genial." },
-        { name: "Marcela D.", stars: "★★★★★", text: "Muy amable y ordenada con el trabajo." }
-      ]
-    },
-    milk: {
-      name: "Milk S.", initial: "M", rating: 4.6, distance: "2.4 km",
-      photo: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&crop=faces",
-      tags: ["Electricidad", "Mantenimiento"],
-      bio: "Técnico electricista enfocado en mantenimiento preventivo y reparaciones rápidas para el hogar.",
-      jobs: 96, years: 4, response: "30 min",
-      reviews: [
-        { name: "Fernando L.", stars: "★★★★☆", text: "Solucionó el problema del cortocircuito rápidamente." },
-        { name: "Diana P.", stars: "★★★★★", text: "Muy puntual y buen precio." }
-      ]
-    }
-  };
+        document.getElementById("em-avatar").src = e.photo;
+        document.getElementById("em-avatar").alt = e.name;
+        document.getElementById("em-name").textContent = e.name;
+        document.getElementById("em-stars").textContent = "★★★★★".slice(
+          0,
+          Math.round(e.rating),
+        );
+        document.getElementById("em-rating-num").textContent =
+          e.rating.toFixed(1);
+        document.getElementById("em-distance").textContent = e.distance;
+        document.getElementById("em-bio").textContent = e.bio;
+        document.getElementById("em-jobs").textContent = e.jobs;
+        document.getElementById("em-years").textContent = e.years;
+        document.getElementById("em-response").textContent = e.response;
 
-  const expertModal = document.getElementById('expert-modal');
+        document.getElementById("em-tags").innerHTML = e.tags
+          .map((t) => `<span class="expert-modal-tag">${t}</span>`)
+          .join("");
 
-  function openExpert(key) {
-    const e = EXPERTS[key];
-    if (!e) return;
-
-    document.getElementById('em-avatar').src = e.photo;
-    document.getElementById('em-avatar').alt = e.name;
-    document.getElementById('em-name').textContent = e.name;
-    document.getElementById('em-stars').textContent = "★★★★★".slice(0, Math.round(e.rating));
-    document.getElementById('em-rating-num').textContent = e.rating.toFixed(1);
-    document.getElementById('em-distance').textContent = e.distance;
-    document.getElementById('em-bio').textContent = e.bio;
-    document.getElementById('em-jobs').textContent = e.jobs;
-    document.getElementById('em-years').textContent = e.years;
-    document.getElementById('em-response').textContent = e.response;
-
-    document.getElementById('em-tags').innerHTML = e.tags
-      .map(t => `<span class="expert-modal-tag">${t}</span>`).join('');
-
-    document.getElementById('em-reviews').innerHTML = e.reviews.map(r => `
+        document.getElementById("em-reviews").innerHTML = e.reviews
+          .map(
+            (r) => `
       <div class="expert-review-item">
         <div class="rev-top"><span>${r.name}</span><span>${r.stars}</span></div>
         <p>${r.text}</p>
       </div>
-    `).join('');
+    `,
+          )
+          .join("");
 
-    expertModal.dataset.currentName = e.name;
-    expertModal.classList.add('open');
-  }
+        expertModal.dataset.currentName = e.name;
+        expertModal.classList.add("open");
+      }
 
-  function closeExpertModal() {
-    expertModal.classList.remove('open');
-  }
+      function closeExpertModal() {
+        expertModal.classList.remove("open");
+      }
 
-  expertModal.addEventListener('click', (e) => { if (e.target === expertModal) closeExpertModal(); });
+      expertModal.addEventListener("click", (e) => {
+        if (e.target === expertModal) closeExpertModal();
+      });
 
-  function contactExpert() {
-    showToast('Mensaje enviado a ' + expertModal.dataset.currentName);
-    closeExpertModal();
-  }
+      function contactExpert() {
+        showToast("Mensaje enviado a " + expertModal.dataset.currentName);
+        closeExpertModal();
+      }
 
-  function bookExpert() {
-    showToast('Solicitud de reserva enviada a ' + expertModal.dataset.currentName);
-    closeExpertModal();
-  }
+      function bookExpert() {
+        showToast(
+          "Solicitud de reserva enviada a " + expertModal.dataset.currentName,
+        );
+        closeExpertModal();
+      }
 
-  let toastTimer;
-  function showToast(msg) {
-    const toast = document.getElementById('toast');
-    document.getElementById('toast-text').textContent = msg;
-    toast.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
-  }
-</script>
-
-</body>
+      let toastTimer;
+      function showToast(msg) {
+        const toast = document.getElementById("toast");
+        document.getElementById("toast-text").textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+      }
+    </script>
+  </body>
 </html>
