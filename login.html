@@ -92,25 +92,40 @@
 </div>
 
   <script>
-    // Credencial de prueba (demo). Reemplaza esta validación
-    // por tu llamada real al backend cuando la tengas lista.
-    const VALID_EMAIL = "demo@gmail.com";
-    const VALID_PASSWORD = "fitxi123";
+    // ── Credenciales demo ──────────────────────────────────────────
+    // Cuando tengas el backend listo, reemplaza esta validación
+    // por una llamada fetch() a tu API de Node.js.
+    //
+    // Usuario normal:
+    const USER_EMAIL    = "demo@gmail.com";
+    const USER_PASSWORD = "fitxi123";
+    //
+    // Administrador:
+    const ADMIN_EMAIL    = "admin@fitxi.com";
+    const ADMIN_PASSWORD = "admin2025";
+    // ─────────────────────────────────────────────────────────────
 
-    const form = document.getElementById("login-form");
-    const emailInput = document.getElementById("email");
+    const form         = document.getElementById("login-form");
+    const emailInput   = document.getElementById("email");
     const passwordInput = document.getElementById("password");
-    const errorMsg = document.getElementById("login-error");
+    const errorMsg     = document.getElementById("login-error");
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const email = emailInput.value.trim().toLowerCase();
+      const email    = emailInput.value.trim().toLowerCase();
       const password = passwordInput.value;
 
-      if (email === VALID_EMAIL && password === VALID_PASSWORD) {
+      if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        // → Redirige al panel de administrador
+        errorMsg.hidden = true;
+        window.location.href = "admin.html";
+
+      } else if (email === USER_EMAIL && password === USER_PASSWORD) {
+        // → Redirige al dashboard de usuario
         errorMsg.hidden = true;
         window.location.href = "index.html";
+
       } else {
         errorMsg.hidden = false;
       }

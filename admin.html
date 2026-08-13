@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FITXI — Panel de Administrador</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ── Estilos exclusivos del panel admin ── */
+
+  /* Badge "Admin" en la navbar */
+  .admin-badge {
+    background: var(--orange-500);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+
+  /* Wrap del admin (igual a dashboard-wrap) */
+  .admin-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 22px 32px 60px;
+  }
+
+  /* Barra superior de bienvenida */
+  .admin-welcome {
+    background: linear-gradient(110deg, var(--navy-900), var(--navy-800) 60%, #6b4a3a);
+    color: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 24px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 26px;
+    box-shadow: 0 8px 24px rgba(20,40,63,0.18);
+    animation: fadeInUp .4s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .admin-welcome::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 90% 40%, rgba(232,121,47,0.22), transparent 55%);
+    pointer-events: none;
+  }
+
+  .admin-welcome h2 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    margin: 0 0 4px;
+  }
+
+  .admin-welcome p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    margin: 0;
+  }
+
+  .admin-welcome-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* KPI cards */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 26px;
+  }
+
+  .kpi-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 22px 20px;
+    box-shadow: var(--shadow-card);
+    animation: fadeInUp .45s ease both;
+    border-left: 3px solid var(--orange-500);
+  }
+
+  .kpi-card:nth-child(2) { animation-delay: .05s; border-color: var(--navy-700); }
+  .kpi-card:nth-child(3) { animation-delay: .10s; border-color: #1e7a3d; }
+  .kpi-card:nth-child(4) { animation-delay: .15s; border-color: var(--orange-600); }
+
+  .kpi-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-bottom: 8px;
+  }
+
+  .kpi-value {
+    font-family: var(--font-display);
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--navy-800);
+    margin-bottom: 4px;
+  }
+
+  .kpi-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .kpi-sub .up { color: #1e7a3d; font-weight: 700; }
+  .kpi-sub .down { color: #c0392b; font-weight: 700; }
+
+  /* Layout dos columnas admin */
+  .admin-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 22px;
+    align-items: start;
+  }
+
+  /* Panel de control de contenido */
+  .admin-panel {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    animation: fadeInUp .5s ease both;
+  }
+
+  .admin-panel-header {
+    background: linear-gradient(90deg, var(--navy-900), var(--navy-800));
+    color: var(--white);
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .admin-panel-header h3 {
+    font-family: var(--font-display);
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .admin-panel-body { padding: 20px 22px; }
+
+  /* Sección de control con toggle */
+  .control-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 16px;
+  }
+
+  .control-row:last-child { border-bottom: none; padding-bottom: 4px; }
+
+  .control-info { flex: 1; }
+  .control-info .ctrl-title { font-weight: 700; font-size: 14px; color: var(--text-dark); margin-bottom: 2px; }
+  .control-info .ctrl-sub { font-size: 12px; color: var(--text-muted); }
+
+  /* Tabla de expertos/usuarios */
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+
+  .admin-table th {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--text-muted);
+    border-bottom: 1.5px solid var(--border);
+    background: var(--bg-page);
+  }
+
+  .admin-table td {
+    padding: 13px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dark);
+    vertical-align: middle;
+  }
+
+  .admin-table tr:last-child td { border-bottom: none; }
+
+  .admin-table tr:hover td { background: var(--orange-50); }
+
+  .admin-table .user-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .admin-table .user-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--white);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  }
+
+  .admin-table .user-name { font-weight: 700; }
+  .admin-table .user-role { font-size: 11.5px; color: var(--text-muted); }
+
+  /* Acciones rápidas en tabla */
+  .tbl-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy-700);
+    cursor: pointer;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+
+  .tbl-btn:hover { background: var(--navy-800); color: var(--white); border-color: var(--navy-800); }
+  .tbl-btn.danger:hover { background: #c0392b; color: var(--white); border-color: #c0392b; }
+
+  /* Panel derecho: actividad reciente */
+  .activity-feed {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    animation: fadeInUp .5s .1s ease both;
+    position: sticky;
+    top: 96px;
+    overflow: hidden;
+  }
+
+  .activity-feed-header {
+    background: linear-gradient(90deg, var(--navy-900), var(--navy-800));
+    color: var(--white);
+    padding: 16px 18px;
+  }
+
+  .activity-feed-header h3 {
+    font-family: var(--font-display);
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .activity-list { padding: 8px 16px; }
+
+  .activity-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .activity-item:last-child { border-bottom: none; }
+
+  .activity-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--orange-500);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .activity-dot.blue { background: var(--navy-700); }
+  .activity-dot.green { background: #1e7a3d; }
+
+  .activity-text { font-size: 13px; color: var(--text-dark); line-height: 1.45; }
+  .activity-time { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+  /* Sección de servicios editables */
+  .services-admin-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .service-admin-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 18px 14px;
+    text-align: center;
+    border: 1.5px solid transparent;
+    position: relative;
+    animation: fadeInUp .5s ease both;
+    transition: border-color .2s;
+  }
+
+  .service-admin-card.disabled {
+    opacity: 0.45;
+    filter: grayscale(1);
+  }
+
+  .service-admin-card:hover { border-color: var(--orange-500); }
+
+  .service-admin-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  /* Sección de notificaciones */
+  .notif-compose {
+    background: var(--bg-page);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-top: 4px;
+  }
+
+  .notif-compose textarea {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text-dark);
+    resize: vertical;
+    min-height: 80px;
+    transition: border-color .15s;
+    background: var(--white);
+  }
+
+  .notif-compose textarea:focus {
+    outline: none;
+    border-color: var(--orange-500);
+    box-shadow: 0 0 0 3px var(--orange-50);
+  }
+
+  .notif-compose-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  @media (max-width: 1000px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .admin-grid { grid-template-columns: 1fr; }
+    .services-admin-grid { grid-template-columns: repeat(2, 1fr); }
+    .activity-feed { position: static; }
+  }
+
+  @media (max-width: 600px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+    .services-admin-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER (igual al usuario, solo cambia el badge) ══ -->
+<header class="fitxi-header">
+  <div class="fitxi-logo-block">
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir menú">☰</button>
+    <span class="fitxi-logo-tagline">Panel de Administrador</span>
+  </div>
+  <div class="fitxi-header-actions">
+    <span class="admin-badge">Admin</span>
+    <div class="avatar-circle" title="Admin" style="background: var(--navy-700);">⚙</div>
+  </div>
+</header>
+
+<!-- ══ DRAWER (mismo que usuario, rutas de admin) ══ -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<aside class="drawer" id="drawer">
+  <button class="drawer-close" id="drawer-close" aria-label="Cerrar menú">✕</button>
+
+  <div class="drawer-profile" style="cursor:default;">
+    <div style="width:54px;height:54px;border-radius:50%;background:var(--navy-700);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;border:2px solid var(--orange-500);">⚙️</div>
+    <div class="info">
+      <div class="pname">Administrador</div>
+      <div class="prating"><span style="color:var(--orange-500);font-size:11px;font-weight:700;">● ADMIN</span> FITXI</div>
+    </div>
+  </div>
+
+  <nav class="drawer-nav">
+    <a href="admin.html" class="drawer-nav-item active"><span class="icon">📊</span> Dashboard</a>
+    <a href="#section-usuarios" class="drawer-nav-item" onclick="closeDrawer()"><span class="icon">👥</span> Usuarios</a>
+    <a href="#section-expertos" class="drawer-nav-item" onclick="closeDrawer()"><span class="icon">🛠️</span> Expertos</a>
+    <a href="#section-servicios" class="drawer-nav-item" onclick="closeDrawer()"><span class="icon">🔍</span> Servicios</a>
+    <a href="#section-contenido" class="drawer-nav-item" onclick="closeDrawer()"><span class="icon">⚙️</span> Contenido App</a>
+    <a href="#section-notif" class="drawer-nav-item" onclick="closeDrawer()"><span class="icon">🔔</span> Notificaciones</a>
+
+    <div class="drawer-divider"></div>
+
+    <a href="index.html" class="drawer-nav-item" target="_blank"><span class="icon">👁️</span> Ver como usuario</a>
+    <a href="#" class="drawer-nav-item"><span class="icon">📈</span> Reportes</a>
+    <a href="#" class="drawer-nav-item"><span class="icon">🛡️</span> Seguridad</a>
+  </nav>
+
+  <a href="login.html" class="drawer-logout">Cerrar sesión</a>
+  <div class="drawer-footer">FITXI Admin <span class="star">★</span> v1.0</div>
+</aside>
+
+<!-- ══ CONTENIDO ADMIN ══ -->
+<div class="admin-wrap">
+
+  <!-- Bienvenida -->
+  <div class="admin-welcome">
+    <div style="position:relative;z-index:1;">
+      <h2>Bienvenido, Administrador 👋</h2>
+      <p>Desde aquí controlas todo lo que ven los usuarios en la app de FITXI.</p>
+    </div>
+    <div class="admin-welcome-right">
+      <a href="index.html" target="_blank" class="btn btn-outline" style="border-color:rgba(255,255,255,0.3);color:var(--white);font-size:13px;padding:10px 18px;">
+        👁️ Ver app de usuario
+      </a>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Usuarios registrados</div>
+      <div class="kpi-value">1,248</div>
+      <div class="kpi-sub"><span class="up">↑ +34</span> esta semana</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Expertos activos</div>
+      <div class="kpi-value">312</div>
+      <div class="kpi-sub"><span class="up">↑ +8</span> nuevos hoy</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Reservas hoy</div>
+      <div class="kpi-value">87</div>
+      <div class="kpi-sub"><span class="up">↑ +12%</span> vs ayer</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Calificación promedio</div>
+      <div class="kpi-value">4.8</div>
+      <div class="kpi-sub">★★★★★ plataforma</div>
+    </div>
+  </div>
+
+  <!-- Grid principal -->
+  <div class="admin-grid">
+
+    <div>
+
+      <!-- ── SECCIÓN: Control de contenido de la app ── -->
+      <div class="admin-panel" style="margin-bottom:22px;" id="section-contenido">
+        <div class="admin-panel-header">
+          <h3>⚙️ Control de contenido — App de usuario</h3>
+          <span style="font-size:12px;color:rgba(255,255,255,0.6);">Los cambios se reflejan en tiempo real</span>
+        </div>
+        <div class="admin-panel-body">
+
+          <div class="control-row">
+            <div class="control-info">
+              <div class="ctrl-title">🗺️ Mostrar mapa en inicio</div>
+              <div class="ctrl-sub">Si se desactiva, el usuario ve solo la lista de servicios sin mapa.</div>
+            </div>
+            <button class="toggle-switch on" onclick="toggleCtrl(this, 'mapa')"></button>
+          </div>
+
+          <div class="control-row">
+            <div class="control-info">
+              <div class="ctrl-title">🔍 Barra de búsqueda activa</div>
+              <div class="ctrl-sub">Permite a los usuarios buscar expertos por nombre o servicio.</div>
+            </div>
+            <button class="toggle-switch on" onclick="toggleCtrl(this, 'busqueda')"></button>
+          </div>
+
+          <div class="control-row">
+            <div class="control-info">
+              <div class="ctrl-title">⭐ Expertos destacados visibles</div>
+              <div class="ctrl-sub">Panel lateral "Expertos Cerca de Ti" en el dashboard del usuario.</div>
+            </div>
+            <button class="toggle-switch on" onclick="toggleCtrl(this, 'expertos')"></button>
+          </div>
+
+          <div class="control-row">
+            <div class="control-info">
+              <div class="ctrl-title">📅 Botón "Reservar" habilitado</div>
+              <div class="ctrl-sub">Desactivar en mantenimiento o si el sistema de pagos está en pausa.</div>
+            </div>
+            <button class="toggle-switch on" onclick="toggleCtrl(this, 'reservar')"></button>
+          </div>
+
+          <div class="control-row">
+            <div class="control-info">
+              <div class="ctrl-title">🔔 Notificaciones push activas</div>
+              <div class="ctrl-sub">Permite enviar mensajes masivos a todos los usuarios.</div>
+            </div>
+            <button class="toggle-switch" onclick="toggleCtrl(this, 'push')"></button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── SECCIÓN: Servicios visibles en la app ── -->
+      <div class="admin-panel" style="margin-bottom:22px;" id="section-servicios">
+        <div class="admin-panel-header">
+          <h3>🔍 Servicios visibles en la app</h3>
+        </div>
+        <div class="admin-panel-body">
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Activa o desactiva los servicios que aparecen en el grid del usuario.</p>
+
+          <div class="services-admin-grid">
+
+            <div class="service-admin-card" id="svc-plomeria">
+              <button class="toggle-switch on service-admin-toggle" onclick="toggleService(this,'svc-plomeria')"></button>
+              <div class="service-icon">🔧</div>
+              <div class="label">Plomería</div>
+            </div>
+
+            <div class="service-admin-card" id="svc-electricidad">
+              <button class="toggle-switch on service-admin-toggle" onclick="toggleService(this,'svc-electricidad')"></button>
+              <div class="service-icon">💡</div>
+              <div class="label">Electricidad</div>
+            </div>
+
+            <div class="service-admin-card" id="svc-pintura">
+              <button class="toggle-switch on service-admin-toggle" onclick="toggleService(this,'svc-pintura')"></button>
+              <div class="service-icon">🖌️</div>
+              <div class="label">Pintura</div>
+            </div>
+
+            <div class="service-admin-card" id="svc-limpieza">
+              <button class="toggle-switch on service-admin-toggle" onclick="toggleService(this,'svc-limpieza')"></button>
+              <div class="service-icon">🧹</div>
+              <div class="label">Limpieza</div>
+            </div>
+
+            <div class="service-admin-card" id="svc-carpinteria">
+              <button class="toggle-switch on service-admin-toggle" onclick="toggleService(this,'svc-carpinteria')"></button>
+              <div class="service-icon">🪚</div>
+              <div class="label">Carpintería</div>
+            </div>
+
+            <div class="service-admin-card" id="svc-jardineria">
+              <button class="toggle-switch on service-admin-toggle" onclick="toggleService(this,'svc-jardineria')"></button>
+              <div class="service-icon">🌿</div>
+              <div class="label">Jardinería</div>
+            </div>
+
+            <div class="service-admin-card" id="svc-cerrajeria">
+              <button class="toggle-switch on service-admin-toggle" onclick="toggleService(this,'svc-cerrajeria')"></button>
+              <div class="service-icon">🔑</div>
+              <div class="label">Cerrajería</div>
+            </div>
+
+            <div class="service-admin-card" id="svc-ac">
+              <button class="toggle-switch on service-admin-toggle" onclick="toggleService(this,'svc-ac')"></button>
+              <div class="service-icon">❄️</div>
+              <div class="label">Aire Acond.</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SECCIÓN: Notificaciones ── -->
+      <div class="admin-panel" style="margin-bottom:22px;" id="section-notif">
+        <div class="admin-panel-header">
+          <h3>🔔 Enviar notificación a usuarios</h3>
+        </div>
+        <div class="admin-panel-body">
+          <div class="notif-compose">
+            <div class="field" style="margin-bottom:12px;">
+              <label>Destinatarios</label>
+              <select style="padding:11px 14px;border-radius:var(--radius-md);border:1.5px solid var(--border);font-family:inherit;font-size:14px;color:var(--text-dark);background:var(--white);width:100%;">
+                <option>Todos los usuarios</option>
+                <option>Solo usuarios activos esta semana</option>
+                <option>Solo técnicos / expertos</option>
+                <option>Usuarios sin reservas recientes</option>
+              </select>
+            </div>
+            <div class="field" style="margin-bottom:12px;">
+              <label>Mensaje</label>
+              <textarea placeholder="Escribe aquí el mensaje que verán los usuarios en la app..."></textarea>
+            </div>
+            <div class="notif-compose-actions">
+              <button class="btn btn-outline" style="font-size:13px;padding:10px 18px;">Vista previa</button>
+              <button class="btn btn-primary" style="font-size:13px;padding:10px 18px;" onclick="sendNotif()">📤 Enviar notificación</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SECCIÓN: Tabla de usuarios ── -->
+      <div class="admin-panel" style="margin-bottom:22px;" id="section-usuarios">
+        <div class="admin-panel-header">
+          <h3>👥 Usuarios recientes</h3>
+          <button class="btn btn-primary" style="font-size:12px;padding:7px 16px;" onclick="showToast('Función disponible próximamente')">+ Agregar</button>
+        </div>
+        <div class="admin-panel-body" style="padding:0;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Correo</th>
+                <th>Estado</th>
+                <th>Reservas</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <img class="user-avatar" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=80&h=80&fit=crop&crop=faces" alt="">
+                    <div><div class="user-name">Javier Ramírez</div><div class="user-role">Usuario</div></div>
+                  </div>
+                </td>
+                <td>j.ramirez@example.com</td>
+                <td><span class="status-badge done">Activo</span></td>
+                <td>12</td>
+                <td><div style="display:flex;gap:6px;"><button class="tbl-btn">Editar</button><button class="tbl-btn danger" onclick="showToast('Usuario suspendido')">Suspender</button></div></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <img class="user-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop&crop=faces" alt="">
+                    <div><div class="user-name">Laura González</div><div class="user-role">Usuario</div></div>
+                  </div>
+                </td>
+                <td>laura.g@example.com</td>
+                <td><span class="status-badge done">Activo</span></td>
+                <td>7</td>
+                <td><div style="display:flex;gap:6px;"><button class="tbl-btn">Editar</button><button class="tbl-btn danger" onclick="showToast('Usuario suspendido')">Suspender</button></div></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <img class="user-avatar" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=80&h=80&fit=crop&crop=faces" alt="">
+                    <div><div class="user-name">Pedro Martínez</div><div class="user-role">Usuario</div></div>
+                  </div>
+                </td>
+                <td>pedro.m@example.com</td>
+                <td><span class="status-badge pending">Pendiente</span></td>
+                <td>2</td>
+                <td><div style="display:flex;gap:6px;"><button class="tbl-btn">Editar</button><button class="tbl-btn danger" onclick="showToast('Usuario suspendido')">Suspender</button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── SECCIÓN: Tabla de expertos ── -->
+      <div class="admin-panel" id="section-expertos">
+        <div class="admin-panel-header">
+          <h3>🛠️ Expertos / Técnicos</h3>
+          <button class="btn btn-primary" style="font-size:12px;padding:7px 16px;" onclick="showToast('Función disponible próximamente')">+ Agregar</button>
+        </div>
+        <div class="admin-panel-body" style="padding:0;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Técnico</th>
+                <th>Especialidad</th>
+                <th>Rating</th>
+                <th>Trabajos</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <img class="user-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=faces" alt="">
+                    <div><div class="user-name">Mike S.</div><div class="user-role">Plomería · Electricidad</div></div>
+                  </div>
+                </td>
+                <td>Plomería</td>
+                <td><span style="color:var(--star);font-weight:700;">★ 4.9</span></td>
+                <td>214</td>
+                <td><span class="status-badge done">Activo</span></td>
+                <td><div style="display:flex;gap:6px;"><button class="tbl-btn">Ver perfil</button><button class="tbl-btn danger" onclick="showToast('Experto desactivado')">Desactivar</button></div></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <img class="user-avatar" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=80&h=80&fit=crop&crop=faces" alt="">
+                    <div><div class="user-name">Alex R.</div><div class="user-role">Electricidad</div></div>
+                  </div>
+                </td>
+                <td>Electricidad</td>
+                <td><span style="color:var(--star);font-weight:700;">★ 4.8</span></td>
+                <td>178</td>
+                <td><span class="status-badge done">Activo</span></td>
+                <td><div style="display:flex;gap:6px;"><button class="tbl-btn">Ver perfil</button><button class="tbl-btn danger" onclick="showToast('Experto desactivado')">Desactivar</button></div></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <img class="user-avatar" src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=80&h=80&fit=crop&crop=faces" alt="">
+                    <div><div class="user-name">Milk S.</div><div class="user-role">Electricidad</div></div>
+                  </div>
+                </td>
+                <td>Mantenimiento</td>
+                <td><span style="color:var(--star);font-weight:700;">★ 4.6</span></td>
+                <td>96</td>
+                <td><span class="status-badge pending">Revisión</span></td>
+                <td><div style="display:flex;gap:6px;"><button class="tbl-btn">Ver perfil</button><button class="tbl-btn" onclick="showToast('Experto aprobado ✓')">Aprobar</button></div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Panel derecho: actividad reciente ── -->
+    <div class="activity-feed">
+      <div class="activity-feed-header">
+        <h3>📋 Actividad reciente</h3>
+      </div>
+      <div class="activity-list">
+
+        <div class="activity-item">
+          <div class="activity-dot green"></div>
+          <div>
+            <div class="activity-text">Nueva reserva: <b>Javier R.</b> → Mike S. (Plomería)</div>
+            <div class="activity-time">Hace 3 min</div>
+          </div>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-dot blue"></div>
+          <div>
+            <div class="activity-text">Nuevo usuario registrado: <b>Camila Torres</b></div>
+            <div class="activity-time">Hace 11 min</div>
+          </div>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-dot"></div>
+          <div>
+            <div class="activity-text">Reseña publicada ★★★★★ → <b>Alex R.</b></div>
+            <div class="activity-time">Hace 24 min</div>
+          </div>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-dot green"></div>
+          <div>
+            <div class="activity-text">Nuevo experto aprobado: <b>Sara Medina</b> (Pintura)</div>
+            <div class="activity-time">Hace 40 min</div>
+          </div>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-dot blue"></div>
+          <div>
+            <div class="activity-text">Nuevo usuario registrado: <b>Andrés Vega</b></div>
+            <div class="activity-time">Hace 1 h</div>
+          </div>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-dot"></div>
+          <div>
+            <div class="activity-text">Servicio completado: Electricidad · <b>Laura G.</b></div>
+            <div class="activity-time">Hace 1 h 20 min</div>
+          </div>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-dot"></div>
+          <div>
+            <div class="activity-text">Pago procesado: $85.000 COP</div>
+            <div class="activity-time">Hace 2 h</div>
+          </div>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-dot blue"></div>
+          <div>
+            <div class="activity-text">Experto pendiente de revisión: <b>Milk S.</b></div>
+            <div class="activity-time">Hace 3 h</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><span class="dot">●</span><span id="toast-text"></span></div>
+
+<script>
+  /* ── Drawer ── */
+  const drawer = document.getElementById('drawer');
+  const drawerOverlay = document.getElementById('drawer-overlay');
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    drawerOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    drawerOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('hamburger-btn').addEventListener('click', openDrawer);
+  document.getElementById('drawer-close').addEventListener('click', closeDrawer);
+  drawerOverlay.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+  /* ── Toggle controles de contenido ── */
+  function toggleCtrl(btn, name) {
+    const isOn = btn.classList.toggle('on');
+    const label = {
+      mapa: 'Mapa en inicio',
+      busqueda: 'Barra de búsqueda',
+      expertos: 'Panel de expertos',
+      reservar: 'Botón Reservar',
+      push: 'Notificaciones push'
+    }[name] || name;
+    showToast((isOn ? '✅ Activado: ' : '⛔ Desactivado: ') + label);
+  }
+
+  /* ── Toggle servicios ── */
+  function toggleService(btn, cardId) {
+    const isOn = btn.classList.toggle('on');
+    const card = document.getElementById(cardId);
+    card.classList.toggle('disabled', !isOn);
+    const label = card.querySelector('.label').textContent;
+    showToast((isOn ? '✅ Servicio visible: ' : '⛔ Servicio oculto: ') + label);
+  }
+
+  /* ── Enviar notificación ── */
+  function sendNotif() {
+    const txt = document.querySelector('.notif-compose textarea').value.trim();
+    if (!txt) { showToast('⚠️ Escribe un mensaje primero'); return; }
+    showToast('📤 Notificación enviada a los usuarios');
+    document.querySelector('.notif-compose textarea').value = '';
+  }
+
+  /* ── Toast ── */
+  let toastTimer;
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toast-text').textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+  }
+</script>
+
+</body>
+</html>
